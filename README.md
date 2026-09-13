@@ -22,53 +22,56 @@ Customer churn directly impacts revenue growth in the **telecom industry**. This
 
 ## 🔍 Key Insights & Findings
 
-* **Insight 1 (Contract Type):** Most customers who leave are on Month-to-Month contracts (over 1,600 people)[cite: 1]. Customers on 1-Year or 2-Year contracts stay much longer[cite: 1].
-* **Insight 2 (Tenure Risk):** New customers leave very fast. **52.94%** of churn happens in the first 0–6 months[cite: 1]. After 1 year, the churn rate drops to **17.13%**[cite: 1].
-* **Insight 3 (Online Security):** Customers without Online Security leave more often ($157.44K monthly revenue lost without security vs. $64.72K lost with security)[cite: 1].
-* **Insight 4 (Monthly Spend):** Churned customers pay a higher average monthly bill (**$74/month**) compared to retained customers (**$61/month**)[cite: 1].
-* **Insight 5 (Customer Revenue):** Monthly charges from old/existing customers are high (**$0.38M**), but monthly charges from new customers drop to **$0.08M**[cite: 1].
+* **Insight 1 (Contract Type):** Most customers who leave are on Month-to-Month contracts (over 1,600 people). Customers on 1-Year or 2-Year contracts stay much longer.
+* **Insight 2 (Tenure Risk):** New customers leave very fast. **52.94%** of churn happens in the first 0–6 months. After 1 year, the churn rate drops to **17.13%**.
+* **Insight 3 (Online Security):** Customers without Online Security leave more often ($157.44K monthly revenue lost without security vs. $64.72K lost with security).
+* **Insight 4 (Monthly Spend):** Churned customers pay a higher average monthly bill (**$74/month**) compared to retained customers (**$61/month**).
+* **Insight 5 (Customer Revenue):** Monthly charges from old/existing customers are high (**$0.38M**), but monthly charges from new customers drop to **$0.08M**.
 
-* **Key Finding:** Customers leave mostly because they pay high monthly rates ($74/mo) on short Month-to-Month plans without Online Security during their first 6 months[cite: 1].
+* **Key Finding:** Customers leave mostly because they pay high monthly rates ($74/mo) on short Month-to-Month plans without Online Security during their first 6 months.
 
 ---
 
 ## 💡 Business Recommendations
 
-* **Recommendation 1:** Give discounts to help Month-to-Month customers switch to 1-Year or 2-Year contracts[cite: 1].
-* **Recommendation 2:** Offer special welcome deals, free setup, and check-ins during the first 6 months to stop early churn[cite: 1].
-* **Recommendation 3:** Include Online Security and Backup in standard packages so every user gets protection automatically[cite: 1].
-* **Recommendation 4:** Review high-price monthly plans and create cheaper options for price-sensitive users[cite: 1].
+* **Recommendation 1:** Give discounts to help Month-to-Month customers switch to 1-Year or 2-Year contracts.
+* **Recommendation 2:** Offer special welcome deals, free setup, and check-ins during the first 6 months to stop early churn.
+* **Recommendation 3:** Include Online Security and Backup in standard packages so every user gets protection automatically.
+* **Recommendation 4:** Review high-price monthly plans and create cheaper options for price-sensitive users.
 
 ---
 ## 🏗️ Data Architecture & Technical Details
 
 ### 1. Data Source and ETL
 * **Data Source:** Excel file.
-* **ETL Process:** 
-  * Loaded Excel file into Power Query.
-  * Cleaned missing values and fixed column data types.
-  * Created custom columns for tenure groups (0-6 months, 6-12 months, 12+ months)[cite: 1].
-  * Grouped existing customers into Normal Risk (4,541) and High Risk (633)[cite: 1].
+* **ETL & Data Cleaning Process:** 
+  * Ingested raw Excel file into Power Query.
+  * **Removed Duplicates:** Cleaned duplicate records to ensure data integrity.
+  * **Fixed Typos & Standardization:** Standardized values (e.g., corrected "Month to month" to "Month-to-Month").
+  * **Text Capitalization:** Capitalized all text columns for consistent formatting across visuals.
+  * **Custom Conditional Columns:** Created custom columns for `Customer Type` (Old Customer vs. New Customer) and tenure bands (0-6 months, 6-12 months, 12+ months).
+  * **Risk Segmentation:** Grouped retained customers into `Normal Risk` (4,541) and `High Risk` (633).
 
 ### 2. DAX Calculations & Key Measures
 ```dax
-// Total Customers
-Total Customers = COUNT(Telco_Data[CustomerID])
+Total Retained Customer = CALCULATE(COUNT('customer churn raw data'[customerID]),'customer churn raw data'[Churn]="No")
 
-// Total Churned Customers
-Total Churned Customers = CALCULATE(COUNT(Telco_Data[CustomerID]), Telco_Data[Churn] = "Yes")
+Total Customers = COUNT('customer churn raw data'[customerID])
 
-// Churn Rate Percentage
-Churn Rate % = DIVIDE([Total Churned Customers], [Total Customers], 0)
+Total Churned Customer = CALCULATE(COUNT('customer churn raw data'[customerID]),'customer churn raw data'[Churn]="Yes")
 
-// Average Monthly Charges
-Avg Monthly Charges = AVERAGE(Telco_Data[MonthlyCharges])
+Churn Rate % = DIVIDE([Total Churned Customer],[Total Customers],0)
 
-## 🛠️ Tools & Technologies
-* **Business Intelligence:** Microsoft Power BI
-* **Data Visualizations:** DAX KPI Cards, Stacked Bar Charts, Donut Charts, Line & Clustered Column Charts
+Avg Retained Monthly Charge = CALCULATE(
+    AVERAGE('customer churn raw data'[MonthlyCharges]),
+    'customer churn raw data'[Churn]="No"
+)
 
----
+Avg Monthly Charge = AVERAGE('customer churn raw data'[MonthlyCharges])
 
-## 📄 License
-This project is open-source and available under the [MIT License](LICENSE).
+Avg Churned Monthly Charge = CALCULATE(
+    AVERAGE('customer churn raw data'[MonthlyCharges]),
+    'customer churn raw data'[Churn]="Yes"
+)
+
+```
