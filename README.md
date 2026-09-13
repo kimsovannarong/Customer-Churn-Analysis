@@ -1,11 +1,11 @@
 # 📊 Customer Churn Analysis Dashboard
 
-An end-to-end interactive Power BI dashboard designed to analyze customer retention patterns, evaluate churn drivers, and provide actionable business recommendations to reduce customer attrition for a **Telecom Service Provider**.
+An end-to-end interactive Power BI dashboard designed to analyze customer retention patterns, evaluate churn drivers, and provide actionable business recommendations to reduce customer attrition for a **Telecom Industry**.
 
 ---
 
 ## 📌 Project Overview
-Customer churn directly impacts revenue growth in the telecom industry. This project analyzes **7,043 customer profiles** to identify key risk factors, highlight high-churn service segments, and offer data-driven strategies for long-term retention.
+Customer churn directly impacts revenue growth in the **telecom industry**. This project analyzes **7,043 customer profiles** to identify key risk factors, highlight high-churn service segments, and offer data-driven strategies for long-term retention.
 
 ---
 ## 📊 Live Report & Visual Previews
