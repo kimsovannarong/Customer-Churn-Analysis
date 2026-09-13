@@ -11,8 +11,7 @@ Customer churn directly impacts revenue growth in the telecom industry. This pro
 ## 📊 Live Report & Visual Previews
 > **[🔗 View Interactive Dashboard via Power BI Service](https://app.powerbi.com/links/r0iP-ndGKD?ctid=1e9461ec-5362-4329-ae46-61fa3e91c6d2&pbi_source=linkShare)**
 
-![Dashboard Main View](path/to/screenshot1.png)
-*Figure 1: Executive Summary View highlighting core company KPIs.*
+![Dashboard Main View](https://github.com/kimsovannarong/Customer-Churn-Analysis/blob/f800900635aa209839209cdddccfcddbfae38c71/Asset/Customer%20Churn%20Analysis%20Dashboard.png)
 
 ---
 ## 📈 Key Metrics (KPIs)
